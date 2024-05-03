@@ -1,0 +1,1 @@
+enum class ViewScreen {Home, Main, SetTime, FeedingSchedule, FeedingItemMenu, FeedingItemSettings}
