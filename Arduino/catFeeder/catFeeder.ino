@@ -8,6 +8,8 @@
 #define SW 8
 Encoder enc(CLK, DT, SW);
 
+Model model;
+
 Feeder feeder;
 
 View* view;
@@ -16,7 +18,7 @@ HomeScreen homeScreen;
 
 void setup() {  
   enc.setType(TYPE2);
-  
+  model.setBuildTime();
   initOled();
 
   view =&homeScreen;
@@ -26,29 +28,24 @@ void setup() {
 void loop() {
   // обязательные функции отработки. Должны постоянно опрашиваться
   enc.tick();
+  model.tick();
   feeder.tick();
+  view->tick();
   
   if (enc.isRight()) view -> turnRight();
   if (enc.isLeft()) view -> turnLeft();
-  if (enc.isClick()){
-    ViewScreen newScreen = view -> click();
-    view = setScreen(newScreen);
-    view -> show();
-  }
-
-  //view -> show();
-
-  //if(view )
+  if (enc.isClick()) setScreen(view -> click());
 }
 
-View* setScreen(ViewScreen screen){
+void setScreen(ViewScreen screen){
   switch (screen)
   {
-  case Home: return &homeScreen; break;
-  case Main: return &mainMenu; break;
-  case SetTime: return &mainMenu; break;
-  case FeedingSchedule: return &mainMenu; break;
-  case FeedingItemMenu: return &mainMenu; break;
-  case FeedingItemSettings: return &mainMenu; break;
+  case Home: view = &homeScreen; break;
+  case Main: view = &mainMenu; break;
+  case SetTime: view = &mainMenu; break;
+  case FeedingSchedule: view = &mainMenu; break;
+  case FeedingItemMenu: view = &mainMenu; break;
+  case FeedingItemSettings: view = &mainMenu; break;
   }
+  view -> show();
 }

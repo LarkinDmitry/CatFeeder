@@ -14,9 +14,10 @@ class View
     public:
     View(){};
 
-    virtual ViewScreen click() {}
-    virtual void turnRight() {};    
-    virtual void turnLeft() {};
+    virtual ViewScreen click() { }
+    virtual void turnRight() { pointerUp(); }
+    virtual void turnLeft() { pointerDown(); }
+    virtual void tick() { }
     
     virtual void show() {
         oled.setScale(1);
@@ -66,14 +67,6 @@ class MainMenu : public View{
         case 2: return FeedingSchedule; break;
         }
     }
-    
-    void turnRight() override{
-        pointerUp();
-    }
-    
-    void turnLeft() override{
-        pointerDown();
-    }
 
     protected:
     int8_t getTitlesCount() override { return 3; }
@@ -89,8 +82,7 @@ class HomeScreen : public View{
     
     void show() override{
         oled.setScale(4);
-        oled.setCursor(7, 2);
-        rtc.setTime(0,0,0,0,0,0);
+        oled.setCursor(6, 2);
         DateTime now = rtc.getTime();
         if(now.hour < 10){
             oled.print(0);
@@ -101,6 +93,10 @@ class HomeScreen : public View{
             oled.print(0);
         }
         oled.print(now.minute);
+    }
+
+    void tick() override{
+        show();
     }
 
     ViewScreen click() override {

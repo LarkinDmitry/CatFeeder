@@ -4,13 +4,14 @@ MicroDS3231 rtc;
 
 class Model{
   public:
-  Model()
-  {
-    currentTime = rtc.getTime();
-  };
+  Model(){};
 
-  void setTime(DateTime time){
+  void setBuildTime(){
     rtc.setTime(BUILD_SEC, BUILD_MIN, BUILD_HOUR, BUILD_DAY, BUILD_MONTH, BUILD_YEAR);
+  }
+
+  void tick(){
+    
   }
 
   private:

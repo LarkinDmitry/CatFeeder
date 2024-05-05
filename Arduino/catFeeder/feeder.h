@@ -29,7 +29,7 @@ class Feeder{
     }
   }
 
-  // 1 порция = половина оборота
+  // 1 порция - это половина оборота
   void givePortions(int count) {
     for(int i = 0; i < count; i++){
       for(int j = 0; j < 4; j++){
