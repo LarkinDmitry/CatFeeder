@@ -1,5 +1,6 @@
 #include <GyverOLED.h>
 #include "viewScreens.h"
+#include "model.h"
 
 GyverOLED<SSD1306_128x64, OLED_NO_BUFFER> oled;
 
@@ -13,7 +14,7 @@ class View
     public:
     View(){};
 
-    virtual View* click() { return this; }
+    virtual ViewScreen click() {}
     virtual void turnRight() {};    
     virtual void turnLeft() {};
     
@@ -55,6 +56,16 @@ class View
 class MainMenu : public View{
     public:
     MainMenu(){};
+
+    ViewScreen click() override {
+        oled.clear();
+        switch (pointer)
+        {
+        case 0: return Home; break;
+        case 1: return SetTime; break;
+        case 2: return FeedingSchedule; break;
+        }
+    }
     
     void turnRight() override{
         pointerUp();
@@ -71,54 +82,29 @@ class MainMenu : public View{
         return str;
     }
 };
-MainMenu mainMenu;
 
 class HomeScreen : public View{
     public:
     HomeScreen(){};
     
     void show() override{
-        oled.setScale(2);
-        oled.setCursor(0, 0);
-        oled.print("HomeScreen");
+        oled.setScale(4);
+        oled.setCursor(7, 2);
+        rtc.setTime(0,0,0,0,0,0);
+        DateTime now = rtc.getTime();
+        if(now.hour < 10){
+            oled.print(0);
+        }
+        oled.print(now.hour);
+        oled.print(":");
+        if(now.minute < 10){
+            oled.print(0);
+        }
+        oled.print(now.minute);
     }
 
-    View* click() override {
+    ViewScreen click() override {
         oled.clear();
-        return &mainMenu;
+        return Main;
     }
 };
-HomeScreen homeScreen;
-
-
-
-
-
-/*
-void print(const char str[]) {
-  //oled.clear();   // очистить дисплей (или буфер)
-  //oled.setScale(2);
-  //oled.home();    // курсор в 0,0
-  //oled.print(str);  // печатай что угодно: числа, строки, float, как Serial!
-
-  DateTime now = rtc.getTime();    
-  Serial.print(now.hour);
-  Serial.print(":");
-  Serial.print(now.minute);
-  Serial.print(":");
-  Serial.print(now.second);
-  Serial.print(" ");
-  Serial.print(now.day);
-  Serial.print(" ");
-  Serial.print(now.date);
-  Serial.print("/");
-  Serial.print(now.month);
-  Serial.print("/");
-  Serial.println(now.year);
-
-  //oled.setCursor(1, 5);   // курсор в (пиксель X, строка Y)
-  //oled.setScale(2);
-  //oled.print(rtc.getTimeString());  // печатай что угодно: числа, строки, float, как Serial!
-  //oled.update();
-}
-*/
