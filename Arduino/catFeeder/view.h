@@ -165,3 +165,8 @@ class SetTimeScreen : public View{
     int8_t tempHH = 0;
     int8_t tempMM = 0;
 };
+
+class FeedingScheduleScreen : public View{
+    public:
+    FeedingScheduleScreen(){};
+};

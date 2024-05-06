@@ -16,6 +16,7 @@ View* view;
 MainMenu mainMenu;
 HomeScreen homeScreen;
 SetTimeScreen setTimeScreen;
+FeedingScheduleScreen feedingScheduleScreen;
 
 void setup() {  
   enc.setType(TYPE2);
@@ -42,7 +43,7 @@ void setScreen(ViewScreen screen){
   case Home: view = &homeScreen; break;
   case Main: view = &mainMenu; break;
   case SetTime: view = &setTimeScreen; break;
-  case FeedingSchedule: view = &mainMenu; break;
+  case FeedingSchedule: view = &feedingScheduleScreen; break;
   case FeedingItemMenu: view = &mainMenu; break;
   case FeedingItemSettings: view = &mainMenu; break;
   }
