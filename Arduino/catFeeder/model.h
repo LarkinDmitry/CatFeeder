@@ -2,6 +2,16 @@
 
 MicroDS3231 rtc;
 
+String getHHMM(){  
+  String time = "";
+  if(rtc.getHours() < 10) time += String(0, DEC);
+  time += String(rtc.getHours(), DEC);
+  time += ":";
+  if(rtc.getMinutes() < 10) time += String(0, DEC);
+  time += String(rtc.getMinutes(), DEC);  
+  return time;
+}
+
 class Model{
   public:
   Model(){};
@@ -11,7 +21,7 @@ class Model{
   }
 
   void tick(){
-    
+
   }
 
   private:

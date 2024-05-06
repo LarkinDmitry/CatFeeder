@@ -15,14 +15,13 @@ Feeder feeder;
 View* view;
 MainMenu mainMenu;
 HomeScreen homeScreen;
+SetTimeScreen setTimeScreen;
 
 void setup() {  
   enc.setType(TYPE2);
-  model.setBuildTime();
   initOled();
 
-  view =&homeScreen;
-  view -> show();
+  setScreen(Home);
 }
 
 void loop() {
@@ -42,7 +41,7 @@ void setScreen(ViewScreen screen){
   {
   case Home: view = &homeScreen; break;
   case Main: view = &mainMenu; break;
-  case SetTime: view = &mainMenu; break;
+  case SetTime: view = &setTimeScreen; break;
   case FeedingSchedule: view = &mainMenu; break;
   case FeedingItemMenu: view = &mainMenu; break;
   case FeedingItemSettings: view = &mainMenu; break;
