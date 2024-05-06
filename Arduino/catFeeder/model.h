@@ -1,4 +1,5 @@
 #include <microDS3231.h>
+#include <EEPROM.h>
 
 MicroDS3231 rtc;
 
@@ -26,4 +27,12 @@ class Model{
 
   private:
   DateTime currentTime;
+};
+
+struct FeedingItem
+{
+  bool isActive; 
+  uint8_t minute;
+  uint8_t hour;
+  uint8_t portions;
 };
