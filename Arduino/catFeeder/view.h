@@ -14,6 +14,7 @@ class View
     public:
     View(){};
 
+    void resetPointer() { pointer = 0; }
     virtual ViewScreen click() { }
     virtual void turnRight() { pointerUp(); }
     virtual void turnLeft() { pointerDown(); }
@@ -50,9 +51,9 @@ class View
     }
 };
 
-class HomeScreen : public View{
+class HomeView : public View{
     public:
-    HomeScreen(){};
+    HomeView(){};
     
     void show() override{
         oled.setScale(4);
@@ -70,9 +71,9 @@ class HomeScreen : public View{
     }
 };
 
-class MainMenu : public View{
+class MainMenuView : public View{
     public:
-    MainMenu(){};
+    MainMenuView(){};
 
     ViewScreen click() override {
         oled.clear();
@@ -80,7 +81,7 @@ class MainMenu : public View{
         {
         case 0: return Home; break;
         case 1: return SetTime; break;
-        case 2: return FeedingSchedule; break;
+        case 2: return FeedingsList; break;
         }
     }
 
@@ -92,9 +93,9 @@ class MainMenu : public View{
     }
 };
 
-class SetTimeScreen : public View{
+class SetTimeView : public View{
     public:
-    SetTimeScreen(){};
+    SetTimeView(){};
 
     ViewScreen click() override {
         pointer++;
@@ -166,7 +167,39 @@ class SetTimeScreen : public View{
     int8_t tempMM = 0;
 };
 
-class FeedingScheduleScreen : public View{
+class FeedingListView : public View{
     public:
-    FeedingScheduleScreen(){};
+    FeedingListView(){};
+    
+    void show() override{
+        updateTitle();
+        View::show();
+    }    
+
+    ViewScreen click() override {
+        oled.clear();
+        switch (pointer)
+        {
+          case 0:  return Main; break;
+          default:
+            model.selectedItem = pointer - 1;
+            return FeedingItemMenu; 
+            break;
+        }
+    }
+
+    protected:
+    int8_t getTitlesCount() override { return 6; }
+    String* getTitles() override{
+        static String str[6];
+        return str;
+    }
+    
+    private:
+    void updateTitle(){
+        getTitles()[0] = "Назад";
+        for(int i = 0; i < model.feedingData.listLength; i++){
+            getTitles()[i + 1] = feedingItemToString(model.feedingData.feedingList[i]);
+        }
+    }
 };

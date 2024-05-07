@@ -8,18 +8,17 @@
 #define SW 8
 Encoder enc(CLK, DT, SW);
 
-Model model;
-
 Feeder feeder;
 
 View* view;
-MainMenu mainMenu;
-HomeScreen homeScreen;
-SetTimeScreen setTimeScreen;
-FeedingScheduleScreen feedingScheduleScreen;
+MainMenuView mainMenuView;
+HomeView homeView;
+SetTimeView setTimeView;
+FeedingListView feedingListView;
 
-void setup() {  
+void setup() {
   enc.setType(TYPE2);
+  model.init();
   initOled();
 
   setScreen(Home);
@@ -40,12 +39,19 @@ void loop() {
 void setScreen(ViewScreen screen){
   switch (screen)
   {
-  case Home: view = &homeScreen; break;
-  case Main: view = &mainMenu; break;
-  case SetTime: view = &setTimeScreen; break;
-  case FeedingSchedule: view = &feedingScheduleScreen; break;
-  case FeedingItemMenu: view = &mainMenu; break;
-  case FeedingItemSettings: view = &mainMenu; break;
+  case Home: view = &homeView; resetAllPointers(); break;
+  case Main: view = &mainMenuView; break;
+  case SetTime: view = &setTimeView; break;
+  case FeedingsList: view = &feedingListView; break;
+  case FeedingItemMenu: view = &homeView; break;
+  case FeedingItemSettings: view = &homeView; break;
   }
   view -> show();
+}
+
+void resetAllPointers(){
+  homeView.resetPointer();
+  mainMenuView.resetPointer();
+  setTimeView.resetPointer();
+  feedingListView.resetPointer();
 }
