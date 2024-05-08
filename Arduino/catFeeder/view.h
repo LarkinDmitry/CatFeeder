@@ -180,7 +180,7 @@ class FeedingListView : public View{
         oled.clear();
         switch (pointer)
         {
-          case 0:  return Main; break;
+          case 0: return Main; break;
           default:
             model.selectedItem = pointer - 1;
             return FeedingItemMenu; 
@@ -201,5 +201,30 @@ class FeedingListView : public View{
         for(int i = 0; i < model.feedingData.listLength; i++){
             getTitles()[i + 1] = feedingItemToString(model.feedingData.feedingList[i]);
         }
+    }
+};
+
+class FeedingItemMenuView : public View{
+    public:
+    FeedingItemMenuView(){};
+
+    ViewScreen click() override {
+        oled.clear();
+        switch (pointer)
+        {
+          case 0: return FeedingsList; break;
+          case 1: return FeedingItemSettings; break;
+          case 2:
+            model.clearSelectedItem();
+            pointer = 0;
+            return FeedingsList; break;
+        }
+    }
+
+    protected:
+    int8_t getTitlesCount() override { return 3; }
+    String* getTitles() override{
+        static String str[] = {"Назад", "Изменить", "Удалить"};
+        return str;
     }
 };

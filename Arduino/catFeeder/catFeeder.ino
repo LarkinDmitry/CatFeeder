@@ -15,6 +15,7 @@ MainMenuView mainMenuView;
 HomeView homeView;
 SetTimeView setTimeView;
 FeedingListView feedingListView;
+FeedingItemMenuView feedingItemMenuView;
 
 void setup() {
   enc.setType(TYPE2);
@@ -43,7 +44,7 @@ void setScreen(ViewScreen screen){
   case Main: view = &mainMenuView; break;
   case SetTime: view = &setTimeView; break;
   case FeedingsList: view = &feedingListView; break;
-  case FeedingItemMenu: view = &homeView; break;
+  case FeedingItemMenu: view = &feedingItemMenuView; break;
   case FeedingItemSettings: view = &homeView; break;
   }
   view -> show();

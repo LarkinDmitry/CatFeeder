@@ -13,7 +13,8 @@ struct FeedingItem
 
 struct FeedingsListData
 {
-  bool isRandomValue = false;
+  uint8_t checkValue0 = 0;
+  uint8_t checkValue255 = 255;
   uint8_t listLength = 5;
   FeedingItem feedingList[5];
 };
@@ -25,19 +26,29 @@ class Model{
   int selectedItem = 0;
   FeedingsListData feedingData;
 
-  void init(){
-    for(int i = 0; i < 100; i++){
-      // для тестов
-      //EEPROM.write(i, 0);
-      //EEPROM.write(i, 255);
-    }
-
+  void init(){    
     EEPROM.get(0, feedingData);
-    if(feedingData.isRandomValue){
+    
+    // first start check
+    if(feedingData.checkValue0 != 0 || feedingData.checkValue255 != 255){
       FeedingsListData defData;
       EEPROM.put(0, defData);
       EEPROM.get(0, feedingData);
     }
+  }
+
+  void clearSelectedItem(){
+    feedingData.feedingList[selectedItem].isActive = false;
+    EEPROM.put(0, feedingData);
+  }
+
+  FeedingItem getSelectedItem(){
+    return feedingData.feedingList[selectedItem];
+  }
+
+  void saveSelectedItem(FeedingItem item){
+    feedingData.feedingList[selectedItem] = item;
+    EEPROM.put(0, feedingData);
   }
 
   void tick(){
@@ -64,7 +75,7 @@ String feedingItemToString(FeedingItem item){
     str += String(item.minute, DEC) + " - " + String(item.portions, DEC) + " порц.";
   }
   else{
-    str = "...";
+    str = "---";
   }
   return str;
 }
