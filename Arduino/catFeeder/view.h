@@ -8,6 +8,7 @@ class View
 {
     public:
     View(){};
+    ViewScreen screenType;
 
     void resetPointer() { pointer = 0; }
     virtual ViewScreen click() { }
@@ -48,7 +49,9 @@ class View
 
 class HomeView : public View{
     public:
-    HomeView(){};
+    HomeView(){
+        screenType = Home;
+    };
     
     void show() override{
         oled.setScale(4);
@@ -68,7 +71,9 @@ class HomeView : public View{
 
 class MainMenuView : public View{
     public:
-    MainMenuView(){};
+    MainMenuView(){
+        screenType = Main;
+    };
 
     ViewScreen click() override {
         oled.clear();
@@ -93,7 +98,9 @@ class MainMenuView : public View{
 
 class SetTimeView : public View{
     public:
-    SetTimeView(){};
+    SetTimeView(){
+        screenType = SetTime;
+    };
 
     ViewScreen click() override {
         pointer++;
@@ -167,7 +174,9 @@ class SetTimeView : public View{
 
 class FeedingListView : public View{
     public:
-    FeedingListView(){};
+    FeedingListView(){
+        screenType = FeedingsList;
+    };
     
     void show() override{
         updateTitle();
@@ -204,7 +213,9 @@ class FeedingListView : public View{
 
 class FeedingItemMenuView : public View{
     public:
-    FeedingItemMenuView(){};
+    FeedingItemMenuView(){
+        screenType = FeedingItemMenu;
+    };
 
     ViewScreen click() override {
         oled.clear();
@@ -232,7 +243,9 @@ class FeedingItemMenuView : public View{
 
 class FeedingItemSettingsView : public View{
     public:
-    FeedingItemSettingsView(){};
+    FeedingItemSettingsView(){
+        screenType = FeedingItemSettings;
+    };
 
     ViewScreen click() override {
         pointer++;
@@ -254,7 +267,7 @@ class FeedingItemSettingsView : public View{
             if(editItem.hour > 23) editItem.hour = 0;
         }
         else if(pointer == 2){
-            editItem.minute++;
+            editItem.minute += 5;
             if(editItem.minute > 59) editItem.minute = 0;
         }
         else if(pointer == 3){
@@ -270,7 +283,7 @@ class FeedingItemSettingsView : public View{
             if(editItem.hour < 0) editItem.hour = 23;
         }
         else if(pointer == 2){
-            editItem.minute--;
+            editItem.minute -= 5;
             if(editItem.minute < 0) editItem.minute = 59;
         }
         else if(pointer == 3){
