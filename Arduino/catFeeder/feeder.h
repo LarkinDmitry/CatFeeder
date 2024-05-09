@@ -44,10 +44,4 @@ class Feeder{
       }
     }
   }
-
-  private:
-
-  void makeStep(){
-
-  }
 };
