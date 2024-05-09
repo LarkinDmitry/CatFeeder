@@ -13,7 +13,7 @@ class Feeder{
   Feeder()
   {
     stepper.setAcceleration(200 * 10000);
-    stepper.setMaxSpeedDeg(180 * 1);  
+    stepper.setMaxSpeedDeg(140 * 1);  
     stepper.autoPower(true);
     stepper.disable();
   };
