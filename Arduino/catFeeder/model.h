@@ -1,14 +1,16 @@
 #include <microDS3231.h>
 #include <EEPROM.h>
+#include "feeder.h"
 
 MicroDS3231 rtc;
+Feeder feeder;
 
 struct FeedingItem
 {
   bool isActive = false;
-  uint8_t hour = 0;
-  uint8_t minute = 0;
-  uint8_t portions = 0;
+  int8_t hour = 0;
+  int8_t minute = 0;
+  int8_t portions = 0;
 };
 
 struct FeedingsListData
@@ -24,6 +26,7 @@ class Model{
   Model(){};
 
   int selectedItem = 0;
+  int readyPortions = 0;
   FeedingsListData feedingData;
 
   void init(){    
@@ -52,7 +55,11 @@ class Model{
   }
 
   void tick(){
-    
+    if(readyPortions > 0){
+      feeder.givePortions(readyPortions);
+      readyPortions = 0;
+    }
+    feeder.tick();
   }
 };
 Model model;
@@ -72,7 +79,9 @@ String feedingItemToString(FeedingItem item){
     if(item.hour < 10) str += String(0, DEC);
     str += String(item.hour, DEC) + ":";
     if(item.minute < 10) str += String(0, DEC);
-    str += String(item.minute, DEC) + " - " + String(item.portions, DEC) + " порц.";
+    str += String(item.minute, DEC) + " - ";
+    if(item.portions < 10) str += String(0, DEC);
+    str += String(item.portions, DEC) + " порц.";
   }
   else{
     str = "---";

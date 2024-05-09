@@ -4,11 +4,6 @@
 
 GyverOLED<SSD1306_128x64, OLED_NO_BUFFER> oled;
 
-void initOled(){
-    oled.init();
-    oled.clear();
-}
-
 class View
 {
     public:
@@ -82,13 +77,16 @@ class MainMenuView : public View{
         case 0: return Home; break;
         case 1: return SetTime; break;
         case 2: return FeedingsList; break;
+        case 3:
+            model.readyPortions++;
+            return Main; break;
         }
     }
 
     protected:
-    int8_t getTitlesCount() override { return 3; }
+    int8_t getTitlesCount() override { return 4; }
     String* getTitles() override{
-        static String str[] = {"Назад", "Настройка времени", "График кормлений"};
+        static String str[] = {"Назад", "Настройка времени", "График кормлений", "Дать одну порцию"};
         return str;
     }
 };
@@ -213,10 +211,13 @@ class FeedingItemMenuView : public View{
         switch (pointer)
         {
           case 0: return FeedingsList; break;
-          case 1: return FeedingItemSettings; break;
+          case 1:
+            resetPointer();
+            return FeedingItemSettings;
+            break;
           case 2:
             model.clearSelectedItem();
-            pointer = 0;
+            resetPointer();
             return FeedingsList; break;
         }
     }
@@ -227,4 +228,78 @@ class FeedingItemMenuView : public View{
         static String str[] = {"Назад", "Изменить", "Удалить"};
         return str;
     }
+};
+
+class FeedingItemSettingsView : public View{
+    public:
+    FeedingItemSettingsView(){};
+
+    ViewScreen click() override {
+        pointer++;
+        if(pointer == 4){
+            model.saveSelectedItem(editItem);
+            pointer = 0;
+            oled.clear();
+            return FeedingsList;
+        }
+        else
+        {
+            return FeedingItemSettings;
+        }
+    }
+    
+    void turnRight() override {
+        if(pointer == 1){
+            editItem.hour++;
+            if(editItem.hour > 23) editItem.hour = 0;
+        }
+        else if(pointer == 2){
+            editItem.minute++;
+            if(editItem.minute > 59) editItem.minute = 0;
+        }
+        else if(pointer == 3){
+            editItem.portions++;
+            if(editItem.portions > 99) editItem.portions = 99;
+        }
+        show();
+    }
+    
+    void turnLeft() override {
+        if(pointer == 1){
+            editItem.hour--;
+            if(editItem.hour < 0) editItem.hour = 23;
+        }
+        else if(pointer == 2){
+            editItem.minute--;
+            if(editItem.minute < 0) editItem.minute = 59;
+        }
+        else if(pointer == 3){
+            editItem.portions--;
+            if(editItem.portions < 0) editItem.portions = 0;
+        }
+        show();
+    }
+    
+    void show() override{
+        if(pointer == 0){
+            editItem = model.getSelectedItem();
+            editItem.isActive = true;
+            pointer++;
+        }
+        
+        oled.setScale(1);
+        oled.setCursor(0, 0);
+        oled.print(feedingItemToString(editItem));
+        
+        oled.setCursor(0, 1);
+        if(pointer == 1) oled.print("--        ");
+        else if(pointer == 2) oled.print("   --     ");
+        else if(pointer == 3) oled.print("        --");
+    }
+    
+    protected:
+    int8_t getTitlesCount() override { return 4; }
+
+    private:
+    FeedingItem editItem;
 };
