@@ -26,8 +26,8 @@ struct FeedingsListData
 {
   uint8_t checkValue0 = 0;
   uint8_t checkValue255 = 255;
-  uint8_t listLength = 5;
-  FeedingItem feedingList[5];
+  uint8_t listLength = 7;
+  FeedingItem feedingList[7];
 };
 
 class Model{

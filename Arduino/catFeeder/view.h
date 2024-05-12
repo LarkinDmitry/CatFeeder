@@ -198,7 +198,7 @@ class FeedingListView : public View{
     protected:
     int8_t getTitlesCount() override { return 6; }
     String* getTitles() override{
-        static String str[6];
+        static String str[8];
         return str;
     }
     
@@ -272,7 +272,7 @@ class FeedingItemSettingsView : public View{
         }
         else if(pointer == 3){
             editItem.portions++;
-            if(editItem.portions > 99) editItem.portions = 99;
+            if(editItem.portions > 99) editItem.portions = 0;
         }
         show();
     }
@@ -284,11 +284,11 @@ class FeedingItemSettingsView : public View{
         }
         else if(pointer == 2){
             editItem.minute -= 5;
-            if(editItem.minute < 0) editItem.minute = 59;
+            if(editItem.minute < 0) editItem.minute = 55;
         }
         else if(pointer == 3){
             editItem.portions--;
-            if(editItem.portions < 0) editItem.portions = 0;
+            if(editItem.portions < 0) editItem.portions = 99;
         }
         show();
     }
