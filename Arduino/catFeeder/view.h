@@ -196,7 +196,7 @@ class FeedingListView : public View{
     }
 
     protected:
-    int8_t getTitlesCount() override { return 6; }
+    int8_t getTitlesCount() override { return 8; }
     String* getTitles() override{
         static String str[8];
         return str;
