@@ -1,6 +1,6 @@
 # CatFeeder
 Данный проект позволит вам собрать автоматическую кормушку для ваших домашних животных.
-https://youtu.be/flGAjXiUZWA
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/flGAjXiUZWA/0.jpg)](https://www.youtube.com/watch?v=flGAjXiUZWA)
 
 ## Особенности этой кормушки:
 * Для работы кормушки необходим блока питания 5V и не менее 2A (лучше 3A);
