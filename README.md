@@ -42,14 +42,14 @@
 * Проверьте работоспособность собранной платы.
 
 ### Механическая часть
-* Распечатайте все детали из папки [3DModels/STL](https://github.com/LarkinDmitry/CatFeeder/tree/main/3DModels/STL). При необходимости внесения изменения в папке [3DModels](https://github.com/LarkinDmitry/CatFeeder/tree/main/3DModels) есть исходные файлы для SOLIDWORKS 2018;
-* Соедините детали корпуса как показано на фото 1 и 2 ниже. При необходимости увеличить объем бака с кормом, вы можете дополнительно распечатать деталь "L.013.00.00.04 Tank" и установить ее (фото 3).
+* Распечатайте все детали из папки [3DModels/STL](https://github.com/LarkinDmitry/CatFeeder/tree/main/3DModels/STL). Если необходимо внести изменения, в папке [3DModels](https://github.com/LarkinDmitry/CatFeeder/tree/main/3DModels) есть исходные файлы для SOLIDWORKS 2018;
+* Соедините детали корпуса как показано на фото 1 и 2 ниже. Если необходимо увеличить объем бака с кормом, вы можете еще раз распечатать деталь "L.013.00.00.04 Tank" и установить ее (фото 3).
 ![alt text](https://github.com/LarkinDmitry/CatFeeder/blob/main/Photo/4.jpg)
 * Скрепите детали крышки, используя 2 кусочка филамента длинной 17,5мм и диаметром 1,75мм;
 ![alt text](https://github.com/LarkinDmitry/CatFeeder/blob/main/Photo/5.jpg)
 * Установите крышку на корпус;
 ![alt text](https://github.com/LarkinDmitry/CatFeeder/blob/main/Photo/6.jpg)
-* Возьмите 4 винта M3x10 и закрепите ими шаговый двигатель 17HS4401. Установите фидерное колесо на шток двигателя. Колесо должно плотно сидеть на валу и не прокручиваться;
+* Возьмите 4 винта M3x10 и закрепите ими шаговый двигатель 17HS4401. Установите фидерное колесо на шток двигателя. Колесо должно плотно сидеть на валу исключая прокручивание;
 ![alt text](https://github.com/LarkinDmitry/CatFeeder/blob/main/Photo/7.jpg)
 * Установите гнездо type-c в нижнюю часть корпуса и припаяйте провода к контактам IN+/IN- модуля XL6009;
 ![alt text](https://github.com/LarkinDmitry/CatFeeder/blob/main/Photo/8.jpg)
