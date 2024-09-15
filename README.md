@@ -28,7 +28,7 @@
   - Электролитический конденсатор 16В 100uF;
   - Гнездо type-c;
   - Соединительные провода.
-* Залейте на Arduino nano прошивку из папки "Arduino/catFeeder";
+* Залейте на Arduino nano прошивку из папки [Arduino/catFeeder](https://github.com/LarkinDmitry/CatFeeder/tree/main/Arduino/catFeeder);
 * Распаяйте контакты на arduino nano так как показано на фото ниже;
 ![alt text](https://github.com/LarkinDmitry/CatFeeder/blob/main/Photo/1.jpg)
 * Настройте выходное напряжение на модуле XL6009 равное 12В;
