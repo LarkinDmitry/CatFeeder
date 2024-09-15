@@ -2,7 +2,7 @@
 
 #define STEPS 200
 #define STEP 4
-#define DIR 2
+#define DIR 3
 #define EN 5
 #define DRIVER_STEP_TIME 2  // меняем задержку на 2 мкс
 
@@ -13,7 +13,7 @@ class Feeder{
   Feeder()
   {
     stepper.setAcceleration(200 * 10000);
-    stepper.setMaxSpeedDeg(140 * 1);  
+    stepper.setMaxSpeedDeg(160 * 1);  
     stepper.autoPower(true);
     stepper.disable();
   };
